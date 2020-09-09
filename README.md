@@ -26,7 +26,7 @@ Affiliate Clickout
 -in search file, find product-item.liquid and click to open
 -duplicate code below: 
 
-<code>
+<pre>
 {% when 'Sensational Sauces Super Ebook'%}
 <article class="
   product-item
@@ -87,7 +87,7 @@ Affiliate Clickout
     {%- endunless -%}
   </div>
 </article>
-</code>
+</pre>
 
 ~ Online Education All AUD to USD Pricing ~
 
