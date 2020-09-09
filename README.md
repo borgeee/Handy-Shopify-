@@ -1,2 +1,2 @@
 # Handy-Shopify
-custom page
+Store custom page note
