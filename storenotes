@@ -1,12 +1,12 @@
+HTS STORE NOTES:
 
 ~ Adding Paywhirl Button ~
--inside admin dashboard click Online Store under Sales Channel
--on the live theme click Action dropdown and select Edit Code (use live  template currently Handy New Version Staging (Feb-10-2020) -- WPD)
--in search file, find static-product-new.liquid and click to open
--in code tab, search for {% case product.title %}
--below {% case product.title %} add this code
+inside admin dashboard click Online Store under Sales Channel
+on the live theme click Action dropdown and select Edit Code (use live  template currently Handy New Version Staging (Feb-10-2020) -- WPD)
+in search file, find static-product-new.liquid and click to open
+in code tab, search for {% case product.title %}
+below {% case product.title %} add this code
 
-<code>
 {% when 'Type in Product Title' %}
 <div class="product-form-inline-atc">
           <ul class="paywhirl-btn-container" style="padding-left: 0px;text-align:center;">
@@ -16,15 +16,24 @@
             	</li> <!-- add new <li></li> element if more than 1 button to be added for same product -->
           </ul>
 </div>
-</code>  
+Click Save
 
-Affiliate Clickout
--inside admin dashboard click Online Store under Sales Channel
--on the live theme click Action dropdown and select Edit Code (use live  template currently Handy New Version Staging (Feb-10-2020) -- WPD)
--in search file, find product-item.liquid and click to open
--duplicate code below: 
+~ Products Add On ~
+Product Description Content
+<!-- short description --> (text will be displayed as short description below/above price)
+<!-- split --> <!-- main description --> (text will display description in a tab)
+<!-- split --> <!--specification --> (text will display specification in a tab)
 
-<pre>
+<style>
+.unit-weight {display: none;}
+</style>
+
+~ Affiliate Clickout (CCL Affiliates) ~
+inside admin dashboard click Online Store under Sales Channel
+on the live theme click Action dropdown and select Edit Code (use live  template currently Handy New Version Staging (Feb-10-2020) -- WPD)
+in search file, find product-item.liquid and click to open
+duplicate code below: 
+
 {% when 'Sensational Sauces Super Ebook'%}
 <article class="
   product-item
@@ -85,7 +94,7 @@ Affiliate Clickout
     {%- endunless -%}
   </div>
 </article>
-</pre>
+
 
 ~ Online Education All AUD to USD Pricing ~
 
@@ -94,7 +103,6 @@ in search file, find product-item.liquid and click to open
 copy code below and change the Product Title
 add  to section product-item.liquid
 
-<code>
 {% when 'HTS Express Online Program'%}
 <article class="
   product-item
@@ -135,14 +143,12 @@ add  to section product-item.liquid
     </span>
   </div>
 </article>
-</code>
 
 Editing Single Product Page (pricing display and paywhirl buy button/ widget)
 in search file, find static-product-new.liquid and click to open
 copy code below and change Product Title 
 add to section static-product-new.liquid
-
-<code>
+    
 {% when 'HTS Express Online Program' %}
         <div class="product-form-inline-atc">
           <h3 class="usd-price">$1,490.00 USD</h3>
@@ -160,5 +166,4 @@ add to section static-product-new.liquid
             display:none !important;}/*hide AUD price*/
           .usd-price{
            font-size:18px; width:100%;padding:0px;margin:0px;margin-bottom:5px;}
-        </style>
-</code>
+        </style>   
