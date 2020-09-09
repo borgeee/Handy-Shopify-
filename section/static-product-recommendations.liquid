@@ -1,0 +1,97 @@
+{% assign product_limit = section.settings.product_limit | times: 1 %}
+
+{% if recommendations.performed %}
+  <div data-html>
+    {% if recommendations.products_count > 0 %}
+      <span class="product-recommendations-title">{{ section.settings.product_recommendations_heading }}</span>
+      {%-
+        include 'product-highlights',
+        products: recommendations.products,
+        product_count: recommendations.products_count,
+        product_item_style: section.settings.product_item_style,
+        use_quickshop: section.settings.enable_product_quickshop,
+        products_per_row: product_limit,
+        products_row_count: 1,
+        product_emphasize: section.settings.product_emphasize
+      -%}
+    {%- endif -%}
+  </div>
+{% else %}
+  {% if section.settings.show_product_recommendations %}
+    <script
+      type="application/json"
+      data-section-type="static-product-recommendations"
+      data-section-id="{{ section.id }}"
+      data-section-data
+    >
+      {
+        "settings": {
+          "limit": {{ product_limit }}
+        },
+        "productId": {{ product.id | json }}
+      }
+    </script>
+
+    <section class="section-product-recommendations" data-product-recommendations></section>
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Recommended products",
+  "settings": [
+    {
+      "id": "show_product_recommendations",
+      "type": "checkbox",
+      "label": "Show dynamic recommendations",
+      "info": "Dynamic recommendations change and improve with time. [Learn more](https://help.shopify.com/en/themes/development/recommended-products)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_recommendations_heading",
+      "label": "Heading",
+      "default": "You may also like"
+    },
+    {
+      "id": "product_item_style",
+      "type": "select",
+      "label": "Product aspect ratio",
+      "info": "Using an uncropped setting will generate white space around the image to create a uniform grid without cropping your image. The background in the editor indicates the applied white space, but will not appear on your storefront.",
+      "options": [
+        { "group": "Uncropped", "value": "natural", "label": "Natural" },
+        { "group": "Uncropped", "value": "small", "label": "Short (4:3)" },
+        { "group": "Uncropped", "value": "medium", "label": "Square (1:1)" },
+        { "group": "Uncropped", "value": "large", "label": "Tall (2:3)" },
+        { "group": "Cropped", "value": "cropped-small", "label": "Short (4:3)" },
+        { "group": "Cropped", "value": "cropped-medium", "label": "Square (1:1)" },
+        { "group": "Cropped", "value": "cropped-large", "label": "Tall (2:3)" }
+      ],
+      "default": "natural"
+    },
+    {
+      "id": "enable_product_quickshop",
+      "type": "checkbox",
+      "label": "Enable product quickshop",
+      "default": false
+    },
+    {
+      "id": "product_limit",
+      "type": "range",
+      "label": "Products",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "id": "product_emphasize",
+      "type": "checkbox",
+      "label": "Emphasize product",
+      "info": "Creates an alternate layout on larger screens",
+      "default": true
+    }
+  ]
+}
+
+{% endschema %}

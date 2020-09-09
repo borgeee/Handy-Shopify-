@@ -1,0 +1,651 @@
+<style>
+ /*Settings & Inititialization*/
+
+  #shopify-section-static-header,
+  #shopify-section-site-footer,
+  #shopify-section-pxs-newsletter,
+  #shopify-section-pxs-announcement-bar{display:none !important;}
+
+  .masthead{ display: none; }
+
+  body{background-color: #fff !important;}
+  .site-main{max-width: none; margin: auto; padding: 0px;}
+  .content{width: 80%; margin: auto;}
+  
+  body,p,h1,h2,h3,h4 {padding: 0px; margin: 0px;}
+
+  
+  div > h1,
+  div > h2,
+  div > h3,
+  div > h4,
+  div > h5,
+  div > h6{font-family: "Oswald", sans-serif;}
+  
+  div > p,
+  div > ul, li, a{font-family: "Oswald", sans-serif;color:#6b6b6b;}  
+  div > p{margin-bottom:10px;}
+  a {
+     text-decoration:none;
+  }
+  
+  /*Theme Color Customizer*/
+  :root {
+    --primary-color: #1dd0c2; /*highlight headers, checkout button*/
+    --hover-color: #1eb8ac; /*checkout button*/
+    --text-color: #333;     /*content p*/
+    --blockquote-color: #333;     
+    --highlight-text: #1dd0c2; /*hts green*/
+    --sectionOne-bg-color: #dcfcfa; /*lt-green-bg*/
+    --sectionTwo-bg-color: #f6f6f6; /*lt-gray-bg*/
+    --sectionThree-bg-color: #e6eaed; /*gray-bg*/
+    --price-color: #1dd0c2;
+  }
+  /*Theme Columns */
+  .col10{width:10%;}
+  .col20{width:20%;}
+  .col30{width:30%;}
+  .col40{width:40%;}
+  .col50{width:50%;}
+  .col60{width:60%;}
+  .col70{width:70%;}
+  .col80{width:80%;}
+  .col90{width:90%;}
+  .col100{width:100%;}
+    
+  .colpad5{padding:5px;}
+  .colpad10{padding:10px;}  
+  .colpad15{padding:15px;}  
+  .colpad20{padding:20px;} 
+    
+  .section-1{
+     
+     width:100%;
+     border-top:1px solid #ebebeb;
+     border-bottom:1px solid #ebebeb;
+     padding:10px 15px;
+  
+  }
+  
+  .section-2{
+      padding: 30px 15px;
+  }
+    
+  .section-3{
+      padding: 150px 15px 30px 15px;
+      background:#f7f7f7;
+      margin-top:-150px;
+  }  
+  .section-4{
+      padding: 30px 15px;
+      background:var(--primary-color); 
+  }
+  .section-5{
+      padding: 30px 15px;
+  }
+  .section-6{
+      padding: 30px 15px;
+	  background:#f7f7f7;
+  } 
+  .inner-content{
+    max-width:1024px;
+    margin:0 auto;
+  }
+    
+  #main-header{
+    width: 100%;   
+    border-bottom: 1px solid #e5e5e5;
+    background: #fff;
+    position: sticky;
+    top: 0px;
+    z-index: 9;
+  }
+  .header-content{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90px;
+    max-width:1024px;
+    margin:0 auto;
+  }
+    
+  .footer-container  {
+     border-bottom: 1px solid #e5e5e5;
+     border-top: 1px solid #e5e5e5;
+  }
+  #logo img{
+  	max-width:100px;
+    width:100%;
+  }  
+  .secure{
+    width:100%;
+    max-width:300px;
+  }
+  .transparent-btn{
+    border:1px solid orange;
+    color:orange;
+    background:transparent;
+    width: 100%;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    border-radius:5px;
+  }
+  .product-content{
+    width:100%;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+    
+  .col{
+     display:flex;
+  }
+  .col-center{
+      justify-content: center;
+      align-items: center;
+    
+  }
+  
+  .prod-image{
+     width:90%;
+  }
+  .payment-img{
+     width:100%;
+     max-width:200px;
+     
+     
+  }
+  .btn{
+     width:calc(100% - 0px);
+     display:block;
+     text-align:center;
+     background:#ffa500;
+     color:#fff;
+     padding:10px;
+     margin-bottom:15px !important;
+     margin:0 auto;
+  }
+  .prod-subtitle{
+     margin-bottom:15px;
+     color: var(--primary-color);
+   }
+  .prod-title{
+     margin-bottom:25px;
+   }
+  .prod-description{
+     margin-bottom:35px;
+     color: var(--primary-color);
+   }
+   .prod-description ul li{
+      margin-bottom:10px;
+      color: var(--primary-color);
+      font-family:Oswald;
+   }
+   .prod-review{
+     margin-top:15px;
+   }
+   .prod-review-content{
+      font-size:16px;
+   }
+    .review-img{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      margin-right:15px;
+    
+    }
+    .review-name{
+      margin-right:15px;
+    }
+    .spr-icon-star{
+      color:#ffa500;
+    }
+    
+    .asfeatured{
+      justify-content: center;
+      align-items: center;
+      min-height: 50px;
+    }
+    .section-title{
+      text-align:center;
+      
+    }
+    .section-subtitle{
+      text-align:center;
+      color: var(--primary-color);
+      margin-bottom:15px;
+    }
+    
+    .video-content{
+      margin-top:30px;
+    }
+    .whitebox{
+       background:#ffffff;
+       padding:15px;
+       margin-left:10px;
+       margin-right:10px;
+       margin-bottom:15px;
+	   text-align:center;
+    }
+	.whitebox img{width:100%;}
+    .footer-container ul{
+       padding-left:0px;
+    }
+    .footer-container ul li{
+       display:inline;
+       padding:10px;
+       font-size:Oswald;
+    }
+    .icon-box{max-width:150px;margin:0 auto;}
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    /**** Accordion ***/
+		.accordion {
+	  background-color: #eee;
+	  color: #444;
+	  cursor: pointer;
+	  padding: 18px;
+	  width: 100%;
+	  border: none;
+	  text-align: left;
+	  outline: none;
+	  font-size: 15px;
+	  transition: 0.4s;
+	}
+
+	.active, .accordion:hover {
+	  background-color: #ccc; 
+	}
+
+	.panel {
+	  padding: 0 18px;
+	  display: none;
+	  background-color: white;
+	  overflow: hidden;
+	}
+/* Mobile View */
+@media only screen and (max-width: 768px) and (min-width: 280px) {
+  
+    .hide-on-mobile{display:none;}
+   
+    .on-mobile-col20{width:20%;}
+    .on-mobile-col30{width:30%;}
+    .on-mobile-col40{width:40%;}
+    .on-mobile-col50{width:50%;}
+    .on-mobile-col60{width:60%;}
+    .on-mobile-col70{width:70%;}
+    .on-mobile-col80{width:80%;}
+    .on-mobile-col90{width:90%;}
+    .on-mobile-col100{width:100%;}
+  
+    .col{flex-direction:column;}
+  
+    .prod-image{width:100%}
+  }    
+  
+</style>
+
+<header id="main-header">
+    <div class="header-content">
+      <div id="logo" class="col10 colpad5 on-mobile-col20">
+          <a href="https://healthyselfstore.com/" title="Heal Thy Self"> <img src="https://cdn.shopify.com/s/files/1/2300/3895/files/newlogo_x180.png?v=1507517378" alt="Heal Thy Self"> </a>
+      </div>
+      <div class="col30 colpad5 on-mobile-col40"><h4 style="font-size:200%;text-align:center;">Feel Cleaner & Clearer</h4></div>
+      <div class="col40 colpad5 hide-on-mobile"><div style="text-align:center;"><img class="secure" src="https://cdn.shopify.com/s/files/1/2300/3895/files/shopify-secure-logo.jpg?v=1583227967"></div></div>
+      <div class="col20 colpad5 on-mobile-col40"><buttton class="transparent-btn">CTA TEXT</button></div>
+    </div>
+</header>
+
+<article class="page">
+  
+  
+  
+  
+  <div class="product-content colpad10">
+  <div class="col">
+    
+  <div class="col50 on-mobile-col100 colpad10">
+    <img  class="prod-image" src="//cdn.shopify.com/s/files/1/2300/3895/products/180510-HTSStore-Tubs-ColonCleanse_1_1024x1024.jpg?v=1546472926" alt="colon cleanse">
+  </div>
+    
+  <div class="col50 on-mobile-col100 colpad10">
+    <h4 class="prod-subtitle">Product Sub Title</h4>
+    <h1 class="prod-title">4 Day Colon Cleanse (400g Tub)</h1>
+    <div class="prod-description">
+              <ul>
+                <li>Colon Cleansing helps improve digestion & nutrient absorption</li>
+                <li>Increased mental clarity</li>
+                <li>Relieves constipation</li>
+                <li>Glowing skin</li>
+                <li>Increased Energy</li>
+              </ul>
+     
+    
+    </div>
+    
+    <div class="col">
+      <div class="col50 on-mobile-col100 "><a href="https://healthyselfstore.com/cart/13017200295978:1"><button class="btn"> BUY Now</button></a></div>
+      <div class="col50 on-mobile-col100 " style="text-align:center;"><img class="payment-img" src="https://cdn.shopify.com/s/files/1/2300/3895/files/payment-images.jpg?v=1583229709"></div>
+    </div>
+    
+    <div class="prod-review"> 
+       <div class="spr-summary">
+         <div class="prod-review-content">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</div>
+         <div style="margin-top:10px;"><span><img class="review-img" src="//cdn.shopify.com/s/files/1/2300/3895/collections/191010-TT_Canvas-14_large.jpg?v=1573739359" alt="Tyler Tolman"></span><span class="review-name">Name Lastname</span><span class="spr-starrating spr-summary-starrating">
+          <i class="spr-icon spr-icon-star"></i><i class="spr-icon spr-icon-star"></i><i class="spr-icon spr-icon-star"></i><i class="spr-icon spr-icon-star"></i><i class="spr-icon spr-icon-star"></i>
+           </span></div>
+        
+      
+        </div>
+      
+    </div>
+    
+    
+  </div>
+    
+    
+    
+   </div>
+    
+    
+   
+    
+   </div> <!--- product-content -->
+  
+   <div class="section-1"> <!-- Credibility -->
+         <div class="inner-content colpad10"> 
+             <div class="col asfeatured">
+               <div class="colpad10">As Featured On...</div>
+               <div class="col80">
+                   <img style="width:100%;"alt="HTS Movement" src="https://cdn.shopify.com/s/files/1/2300/3895/files/2020-02-28_1508.png?v=1582873913">
+               </div>
+            </div>
+        </div>
+  </div>
+  
+  <div class="section-2"> <!-- Video -->
+         <div class="inner-content colpad10"> 
+              <h4 class="section-subtitle">Etiam ante sem, ultricies nec augue sit amet, </h4>
+              <h2 class="section-title">Best Natural Colon Cleanse By Tyler Tolman</h2>
+           
+              <div class="video-content">
+                    <style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='https://www.youtube.com/embed/EjW7Tf5VsLE' frameborder='0' allowfullscreen></iframe></div>
+                
+              </div>
+         </div>
+   </div>
+  
+    <div class="section-3"> <!-- 3box section -->
+         <div class="inner-content colpad10"> 
+              <h4 class="section-subtitle">Etiam ante sem, ultricies nec augue sit amet, </h4>
+              <h2 class="section-title">Why do a Colon Cleanse?</h2>
+           
+              <div class="col col-center" style="margin-top:30px;">
+                    <div class="col30 on-mobile-col100 whitebox">
+					 
+					      <div class="icon-box"><img src="https://cdn.shopify.com/s/files/1/2300/3895/files/img-benefits-colon-1.png?v=1583291303"></div>
+					
+                          <!-- <h4 class="section-subtitle">Etiam ante sem, ultricies </h4> -->
+                      
+                          <p>Gently clean your colon by removing waste, toxins, pesticides, metals and parasites.</p>
+                         
+                    </div>
+                     
+                    <div class="col30 on-mobile-col100 whitebox">
+						  <div class="icon-box"><img src="https://cdn.shopify.com/s/files/1/2300/3895/files/img-benefits-colon-1.png?v=1583291303"></div>
+					
+                            <!-- <h4 class="section-subtitle">Etiam ante sem, ultricies </h4> -->
+                      
+                          <p>Absorb more nutrients from your foods with a cleaner digestive tract.</p>
+                    </div> 
+                    
+                    <div class="col30 on-mobile-col100 whitebox">
+                          <div class="icon-box"><img src="https://cdn.shopify.com/s/files/1/2300/3895/files/img-benefits-colon-3.png?v=1583292472"></div>
+					
+                          <!-- <h4 class="section-subtitle">Etiam ante sem, ultricies </h4> -->
+                      
+                          <p>Lose weight, increase your metabolism and experience optimal health and longevity</p>
+                    </div>
+              </div>
+               
+              <div style="max-width:300px; margin:0 auto;margin-top:30px;">
+                <a href="#"><button class="btn">CALL TO ACTION TEXT</button></a>
+                 	 <div class="spr-summary">
+                  		<div style="text-align:center;"><span class="spr-starrating spr-summary-starrating">
+          <i class="spr-icon spr-icon-star"></i><i class="spr-icon spr-icon-star"></i><i class="spr-icon spr-icon-star"></i><i class="spr-icon spr-icon-star"></i><i class="spr-icon spr-icon-star"></i>
+           </span><span class="review-name">  400+ Review</span></div>
+        
+                  	</div>
+              </div>
+              
+         </div>
+   </div>
+  
+  
+   <div class="section-4"> <!-- review slider-->
+         <div class="inner-content colpad10"> 
+              <h4 class="section-subtitle" style="color:#fff;">Etiam ante sem, ultricies nec augue sit amet, </h4>
+              <h2 class="section-title" style="color:#fff;">unt elementum dolor. Praesent eu sollicitudin urna, nec ornare nisi. Sed dictum mi id elit pretium,</h2>  
+         </div>
+
+
+         <div style="text-align:center">
+             <img  style="max-width:500px;width:100%"src="https://cdn.shopify.com/s/files/1/2300/3895/files/sally-5star-review.png?v=1582852469">
+
+         </div>
+     
+     
+      
+     
+  </div>
+           
+  
+  
+  <div class="section-5 product-content colpad10">
+  		<div class="col col-center">
+    
+  				<div class="col50 on-mobile-col100 colpad10">
+    					<img  class="prod-image"src="//cdn.shopify.com/s/files/1/2300/3895/products/180510-HTSStore-Tubs-ColonCleanse_1_1024x1024.jpg?v=1546472926" >
+  				</div>
+    
+                <div class="col50 on-mobile-col100 colpad10">
+                  <h4 class="prod-subtitle">Product Sub Title</h4>
+                  <h1 class="prod-title">4 Day Colon Cleanse (400g Tub)</h1>
+                  <div class="prod-description">
+                    <p style="font-family:Oswald;">The Colon Cleanse is a mixture of Organic Chia Seeds, Organic Buckwheat, Organic Psyllium, Bentonite Clay and Salt. Bentonite Clay has a very profound affect of absorbing chemicals (such as aluminium and mercury), pesticides, herbicides and heavy toxic metals. It leeches it out of your body into your colon and then binds with the fiber, therefore enabling your body to release the many different toxins out your backdoor : )</p>
+
+					<p style="font-family:Oswald;">For a complete colon cleanse that will give you an energy boost and long-lasting results in just a few days, order your 4-Day Colon Cleanse today.</p>
+
+                  </div>
+
+                  <div class="col">
+                    <div class="col50 on-mobile-col100 "><a href="https://healthyselfstore.com/cart/13017200295978:1"><button class="btn">BUY NOW</button></a></div>
+                    <div class="col50 on-mobile-col100 " style="text-align:center;"><img class="payment-img" src="https://cdn.shopify.com/s/files/1/2300/3895/files/payment-images.jpg?v=1583229709"></div>
+                  </div>
+
+
+
+                </div>
+    
+    
+    
+   	   </div>
+        
+   </div> <!--- product-content -->
+  
+   <div class="section-6"> <!--- FAQ --->
+          <div class="inner-content colpad10"> 
+              <h4 class="section-subtitle" style="color:#fff;">Etiam ante sem, ultricies nec augue sit amet, </h4>
+              <h2 class="section-title" style="color:#fff;">FAQ</h2>  
+			  
+			    <div class="accordion">Section 1</div>
+				<div class="panel">
+				  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				</div>
+
+				<div class="accordion">Section 2</div>
+				<div class="panel">
+				  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				</div>
+
+				<div class="accordion">Section 3</div>
+				<div class="panel">
+				  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				</div>
+         </div>
+
+   </div>
+           
+ </article>
+
+<footer class="footer-container">
+     <div class="inner-content colpad20" style="border-bottom:1px solid #ebebeb;">
+				<h4 style="margin-bottom:10px;">HEALTH & MEDICAL DISCLAIMER</h4>
+				<p>The information provided within this site is strictly for the purposes of information only and is not a replacement or substitute for professional advice, doctors visit or treatment. The provided content on this site should serve, at most, as a companion to a professional consult. It should under no circumstance replace the advice of your primary care provider. You should always consult your primary care physician prior to starting any new fitness, nutrition. weight loss or health regime. Use of the programs, advice, and information contained in this website is at the sole choice and risk of the reader or participant.</p>
+     </div>
+     <div class="inner-content colpad10 col col-center">
+            <div id="logo" class="col10 colpad5 on-mobile-col20">
+              <a href="https://healthyselfstore.com/" title="Heal Thy Self"> <img src="https://cdn.shopify.com/s/files/1/2300/3895/files/newlogo_x180.png?v=1507517378" alt="Heal Thy Self"> </a> 
+            </div>
+            <div class="col40 colpad5 on-mobile-col100"><span>Copyright © 2020 by Heal Thy Self Co Ltd. All Rights Reserved </span></div>
+            <div class="col30 colpad5 hide-on-mobile" style="text-align:center;"><img class="secure" src="https://cdn.shopify.com/s/files/1/2300/3895/files/shopify-secure-logo.jpg?v=1583227967"></div>
+            <div class="col20 colpad5 on-mobile-col100" style="text-align:center;">
+                 <ul>
+                   <li><span id="myBtn">Terms </span> </li>
+                   <li><span id="myBtn2"> Privacy Policy</span></li>
+                 </ul>
+            </div>
+     </div>
+</footer>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+   
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac arcu lacus. Aenean condimentum cursus felis non pulvinar. Curabitur eu urna nulla. Morbi volutpat facilisis libero a aliquet. Suspendisse non massa finibus, imperdiet justo vitae, fringilla tortor. Pellentesque semper interdum leo, ut dignissim nisi interdum sit amet. Quisque quis nibh tempor, euismod quam non, hendrerit ex. Suspendisse mattis euismod urna, ut posuere nisi porttitor ut. Donec at faucibus neque, in scelerisque risus. Donec quam sem, vestibulum sed faucibus at, hendrerit egestas erat. Fusce pharetra faucibus erat non pretium. Aliquam posuere tortor a vulputate dictum. Maecenas vel turpis mi. Fusce dapibus dui non velit malesuada pretium. Aliquam sed dapibus mauris, ac commodo dui.
+
+Etiam ante sem, ultricies nec augue sit amet, tincidunt elementum dolor. Praesent eu sollicitudin urna, nec ornare nisi. Sed dictum mi id elit pretium, tempus pellentesque felis efficitur. Nunc semper turpis sed tempus faucibus. Integer eu tempus arcu. Vestibulum placerat, mi eu accumsan vehicula, velit leo mollis sem, et aliquet urna mauris a urna. Nunc varius risus vel neque pharetra scelerisque. Sed molestie dolor sed nibh blandit laoreet. Proin ac odio arcu. Nulla facilisi. Vivamus cursus massa quis massa molestie pulvinar. Proin porttitor cursus eros, at facilisis ligula interdum nec. Cras auctor scelerisque augue, in commodo justo sodales interdum.
+
+Vestibulum congue varius felis. Phasellus in tellus porttitor, tempor dui eget, tincidunt quam. Proin finibus turpis sit amet libero venenatis vulputate et eu augue. Integer quam arcu, faucibus non consequat vel, luctus vel erat. Nam laoreet posuere metus et tempus. In fermentum sollicitudin sapien at tristique. Sed purus augue, laoreet vitae scelerisque eu, gravida et leo. Sed hendrerit ut ex a malesuada. Mauris aliquam id leo rutrum efficitur. Morbi consectetur mauris ac scelerisque ullamcorper. In et nibh dignissim, suscipit magna vel, convallis nibh. Proin sollicitudin arcu id risus tristique faucibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc facilisis mollis purus id consectetur. Donec efficitur, augue at fringilla imperdiet, erat velit aliquet eros, vel viverra turpis elit eget metus.
+
+Integer sit amet auctor felis, fermentum varius lacus. Duis ac metus dignissim mi aliquet porta id ac mauris. Nullam vestibulum dolor in eros bibendum facilisis. Phasellus pharetra est viverra turpis tincidunt, et consectetur lacus ultrices. Integer id quam ex. Nam rutrum, magna et lobortis porta, ligula dolor condimentum dui, sit amet accumsan mi orci et nibh. Sed rhoncus fermentum nisl, eget maximus ante malesuada vitae. Ut tempor imperdiet vulputate. In pretium mauris eu diam rutrum, ac tempus enim semper. Mauris vitae leo vitae eros bibendum pulvinar. Aenean nisl ex, sagittis quis fermentum in, ullamcorper sit amet dui.</p>
+  </div>
+
+</div>
+
+<!-- The Modal2 -->
+<div id="myModal2" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+   
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac arcu lacus. Aenean condimentum cursus felis non pulvinar. Curabitur eu urna nulla. Morbi volutpat facilisis libero a aliquet. Suspendisse non massa finibus, imperdiet justo vitae, fringilla tortor. Pellentesque semper interdum leo, ut dignissim nisi interdum sit amet. Quisque quis nibh tempor, euismod quam non, hendrerit ex. Suspendisse mattis euismod urna, ut posuere nisi porttitor ut. Donec at faucibus neque, in scelerisque risus. Donec quam sem, vestibulum sed faucibus at, hendrerit egestas erat. Fusce pharetra faucibus erat non pretium. Aliquam posuere tortor a vulputate dictum. Maecenas vel turpis mi. Fusce dapibus dui non velit malesuada pretium. Aliquam sed dapibus mauris, ac commodo dui.
+
+Etiam ante sem, ultricies nec augue sit amet, tincidunt elementum dolor. Praesent eu sollicitudin urna, nec ornare nisi. Sed dictum mi id elit pretium, tempus pellentesque felis efficitur. Nunc semper turpis sed tempus faucibus. Integer eu tempus arcu. Vestibulum placerat, mi eu accumsan vehicula, velit leo mollis sem, et aliquet urna mauris a urna. Nunc varius risus vel neque pharetra scelerisque. Sed molestie dolor sed nibh blandit laoreet. Proin ac odio arcu. Nulla facilisi. Vivamus cursus massa quis massa molestie pulvinar. Proin porttitor cursus eros, at facilisis ligula interdum nec. Cras auctor scelerisque augue, in commodo justo sodales interdum.
+
+Vestibulum congue varius felis. Phasellus in tellus porttitor, tempor dui eget, tincidunt quam. Proin finibus turpis sit amet libero venenatis vulputate et eu augue. Integer quam arcu, faucibus non consequat vel, luctus vel erat. Nam laoreet posuere metus et tempus. In fermentum sollicitudin sapien at tristique. Sed purus augue, laoreet vitae scelerisque eu, gravida et leo. Sed hendrerit ut ex a malesuada. Mauris aliquam id leo rutrum efficitur. Morbi consectetur mauris ac scelerisque ullamcorper. In et nibh dignissim, suscipit magna vel, convallis nibh. Proin sollicitudin arcu id risus tristique faucibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc facilisis mollis purus id consectetur. Donec efficitur, augue at fringilla imperdiet, erat velit aliquet eros, vel viverra turpis elit eget metus.
+
+Integer sit amet auctor felis, fermentum varius lacus. Duis ac metus dignissim mi aliquet porta id ac mauris. Nullam vestibulum dolor in eros bibendum facilisis. Phasellus pharetra est viverra turpis tincidunt, et consectetur lacus ultrices. Integer id quam ex. Nam rutrum, magna et lobortis porta, ligula dolor condimentum dui, sit amet accumsan mi orci et nibh. Sed rhoncus fermentum nisl, eget maximus ante malesuada vitae. Ut tempor imperdiet vulputate. In pretium mauris eu diam rutrum, ac tempus enim semper. Mauris vitae leo vitae eros bibendum pulvinar. Aenean nisl ex, sagittis quis fermentum in, ullamcorper sit amet dui.</p>
+  </div>
+
+</div>
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+var modal2 = document.getElementById("myModal2");  
+  
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+var btn2 = document.getElementById("myBtn2");
+  
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+var span2 = document.getElementsByClassName("close")[1];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+btn2.onclick = function() {
+  modal2.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+span2.onclick = function() {
+  modal2.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+window.onclick = function(event) {
+  if (event.target == modal2) {
+    modal2.style.display = "none";
+  }
+}
+</script>

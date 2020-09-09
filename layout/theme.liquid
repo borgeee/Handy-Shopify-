@@ -1,0 +1,176 @@
+<!doctype html>
+<!--[if IE 9]><html class="ie9 no-js"><![endif]-->
+<!--[if !IE]><!--><html class="no-js"><!--<![endif]-->
+  <head><!-- hnk portfolio proof -->
+    <meta charset="utf-8">
+
+    <title>
+      {{- page_title -}}
+
+      {%- if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' %}
+        {{ 'title.tags' | t: tags: meta_tags -}}
+      {%- endif -%}
+
+      {%- if current_page != 1 -%}
+        {{- 'title.page' | t: page: current_page -}}
+      {%- endif -%}
+
+      {%- unless page_title contains shop.name -%}
+        {{- 'title.shop' | t: shop: shop.name -}}
+      {%- endunless -%}
+    </title>
+
+    {% if page_description != blank %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% if settings.favicon != blank %}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {% endif %}
+
+    {% if template contains 'collection' and current_tags %}
+      <meta name="robots" content="noindex" />
+      <link rel="canonical" href="{{ shop.url }}{{ collection.url }}" />
+    {% else %}
+      <link rel="canonical" href="{{ canonical_url }}" />
+    {% endif %}
+
+    <meta name="viewport" content="width=device-width">
+
+    {%
+      include 'social-meta-tags',
+      twitter_handle: settings.twitter_handle
+    %}
+    
+    <!--infinite options load time-->
+    <script src="//d1liekpayvooaz.cloudfront.net/apps/customizery/customizery.js?shop={{shop.permanent_domain}}"></script>
+    
+    <script>
+      document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js');
+      if(window.Shopify&&window.Shopify.designMode)document.documentElement.className+=' in-theme-editor';
+    </script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+    {% include 'google-fonts', fonts: 'font_title|font_body|font_label' %}
+	
+    {{ content_for_header }}
+{%- render 'bold-common' -%}
+  
+  {% include 'bookthatapp-widgets' %}
+    
+    <!--PROOF PIXEL--><script src="https://cdn.useproof.com/proof.js?acc=ElGcpB6F2xcPvpJomr7ks7DtvPQ2" async></script><!--END PROOF PIXEL-->
+
+{%include 'fbTrack' %}<!--AZEXO_Header_Scripts--> {% include 'azexo-header-scripts' %} <!--End_AZEXO_Header_Scripts--><!--AZEXO_Version_79--> 
+{% render 'pagefly-header' %}
+ 
+  {% render 'shogun-head' %}
+
+</head> 
+
+  <body class="page-template-{{ template | replace: '_', '-' }}">
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSRDZPL"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    {% if template contains 'password' %}
+      <main class="site-main">
+        {{ content_for_layout }}
+      </main>
+    {% else %}
+      {% section 'pxs-announcement-bar' %}
+      {% section 'static-header' %}
+    {% if template == 'index' %}
+    <div class="slider-desktop">
+      {% section 'dynamic-slideshow' %}
+    </div>
+    <div class="banner-mobile">
+      {% section 'pxs-image-with-text-overlay' %}
+    </div>
+      {% section 'pxs-newsletter' %}
+    {% endif %}
+      {% include 'header-minicart' %}
+      {% section 'static-contactbar' %}
+
+      <main class="site-main">
+        {{ content_for_layout }}
+      </main>
+	  {% section 'pxs-newsletter' %}
+      {% section 'site-footer' %}
+    {% endif %}
+
+    {%- if template contains 'cart' -%}
+      {{ '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' | script_tag }}
+      {{ '/services/javascripts/countries.js' | script_tag }}
+      {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {%- endif -%}
+
+    {%- if template contains 'customer' -%}
+      {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+      {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+    {%- endif -%}
+
+    <script
+      src="{{ 'handy.js' | asset_url }}"
+      data-scripts
+      data-shopify-api-url="{{ 'api.jquery.js' | shopify_asset_url }}"
+      data-shopify-cart-url="{{ 'jquery.cart.js' | asset_url }}"
+      data-shopify-currencies="//cdn.shopify.com/s/javascripts/currencies.js"
+      data-shopify-qrcode="{{ 'vendor/qrcode.js' | shopify_asset_url }}"
+    ></script>
+
+    {% include 'structured-data' %}
+    {% unless template contains 'index' %}
+    <style>
+      .site-header {
+        color: #000;
+      }
+      @media screen and (max-width: 480px) {
+       .mobilenav-toggle {
+          color: #000!important;
+        }
+        .site-actions-cart {
+          color: #000!important;
+        }
+      }
+    </style>
+    {% endunless %}
+    
+    <script src="//cdn.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=healthyselfstore.myshopify.com"></script>
+    
+    <!-- WPD Start -->
+                {% if customer.tags.size > 0 and template != 'cart' %}
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                      let checkoutbtninterval = setInterval(function(){
+                        var x=document.querySelectorAll("input[name='checkout'], button[name='checkout'], input[name='goto_pp'], button[name='goto_pp'], input[name='goto_gc'], button[name='goto_gc'], [href$='checkout']");
+                        var WPD_RedirectToCart = function(e) {
+                          	e.stopPropagation();
+                            e.preventDefault();
+                            window.location = '/cart';
+                            };
+                            for (var i = 0; i < x.length; i++) {
+                                x[i].addEventListener('click', WPD_RedirectToCart, false);
+                            }
+},500)
+                });
+              </script>
+               {% endif %}
+         
+
+               {% if customer.tags.size > 0 and template == 'cart' %}
+                 {% include 'wcp_cart' %}
+               {% endif %}
+               <!-- WPD End -->
+    
+<!--AZEXO_Footer_Scripts--> {% include 'azexo-footer-scripts' %} <!--End_AZEXO_Footer_Scripts--></body>
+
+<style>
+  .dynamic-checkout__content{
+    display:none;
+  }
+</stlye>
+  
+</html>

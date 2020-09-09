@@ -1,0 +1,167 @@
+<script
+  type="application/json"
+  data-section-type="pxs-announcement-bar"
+  data-section-id="{{ section.id }}"
+></script>
+
+{% assign enable_announcement = section.settings.show_announcement %}
+{% assign homepage_only = section.settings.announcement_home_only %}
+{% assign show_announcement = false %}
+
+{% if enable_announcement and homepage_only == false %}
+  {% assign show_announcement = true %}
+{% endif %}
+
+{% if enable_announcement and homepage_only and template.name == 'index' %}
+  {% assign show_announcement = true %}
+{% endif %}
+
+{% if section.settings.announcement_text == blank %}
+  {% assign show_announcement = false %}
+{% endif %}
+
+{% unless show_announcement %}
+  {% break %}
+{% endunless %}
+
+<section class="pxs-announcement-bar"
+  style="
+    color: {{ section.settings.announcement_color }};
+    background-color: {{ section.settings.announcement_background }};
+    height: 50px;">
+  
+  <span class="announcement-text">
+    {% if section.settings.announcement_text_mobile != blank %}
+    <span class="pxs-announcement-bar-text-mobile">
+      {{ section.settings.announcement_text_mobile | escape }}
+    </span>
+    {% endif %}
+
+    {% if section.settings.announcement_text != blank %}
+      <span class="pxs-announcement-bar-text-desktop">
+        {{ section.settings.announcement_text | escape }}
+      </span>
+    {% endif %}
+  </span>
+
+  <span class="cta-btn">
+    <a style="color: {{ section.settings.announcement_color }};" target="_blank"
+      {% if section.settings.announcement_link != blank %}
+        href="{{ section.settings.announcement_link }}"
+      {% endif %}
+    > 
+        {% if section.settings.announcement_button_text != blank %}
+        	{{ section.settings.announcement_button_text | escape }}
+        {% endif %}
+    </a>
+  </span>
+<section>  
+  
+
+<style>
+  #shopify-section-pxs-announcement-bar{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 10001;
+  }
+.announcement-text {
+    display:inline-block;
+    font: 17px Helvetica;
+  }
+.cta-btn a{
+  	font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    background-color: #ED8D00;
+    border-radius: 50px;
+    padding: 5px 15px 6px 15px;
+    text-decoration:none;
+    display:inline-block;
+  }
+  .announcement-img-section{
+    width: 80%; margin:auto; text-align: center;
+  }
+  
+  .announcement-img-section img{
+    width: 65%; margin:auto;
+  }
+  
+@media only screen and (max-width: 600px) {
+  .announcement-text {
+    margin-bottom: 10px;
+  }
+.announcement-img-section, .announcement-img-section img{
+    width: 100%;
+  }
+
+}
+</style>
+
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_home_only",
+      "label": "Show on home page only",
+      "default": false
+    },
+    {
+      "id": "announcement_text",
+      "type": "textarea",
+      "label": "Text",
+      "default": "Call attention to a special discount, feature, or promotion here."
+    },
+    {
+      "id": "announcement_text_mobile",
+      "type": "textarea",
+      "label": "Text (mobile)",
+      "default": "Use less text on mobile!",
+      "info": "Use this option if you want to display alternate text in mobile. Recommended for shortening announcement text to make suitable for mobile."
+    },
+  	{
+      "id": "announcement_button_text",
+      "type": "text",
+      "label": "Button Text"
+    },
+    {
+      "id": "announcement_link",
+      "type": "url",
+      "label": "Button Link"
+    },
+    {
+      "id": "announcement_color",
+      "type": "color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "id": "announcement_background",
+      "type": "color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "id": "announcement_image",
+      "type": "image_picker",
+      "label": "Image"
+    },
+    {
+      "id": "announcement_image_link",
+      "type": "url",
+      "label": "Image Link"
+    }
+
+  ]
+}
+
+{% endschema %}
