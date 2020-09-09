@@ -1,2 +1,2 @@
-# Handy-Shopify-
+# Handy-Shopify
 custom page
