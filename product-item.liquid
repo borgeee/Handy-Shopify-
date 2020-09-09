@@ -1,0 +1,1132 @@
+{%- comment -%}
+  A shared product item component
+
+  @param product
+
+  @param product_style
+    What styling should the product image be given
+
+  @param use_badges
+    Whether to display product sale badges or display in-line
+
+  @param show_vendors
+    Whether to display product vendors
+
+  @param use_quickshop
+    Whether to use the quickshop or not
+{%- endcomment -%}
+
+{% include 'wcp_discount' with product %} 
+
+
+{%- assign product_style = product_style | default: 'natural' -%}
+{%- assign use_badges = use_badges | default: true -%}
+{%- assign show_vendors = show_vendors | default: false -%}
+{%- assign on_sale = false -%}
+{% assign product_grid_show_second_image = section.settings.product_grid_show_second_image %}
+
+{%- for variant in product.variants -%} {% include 'wcp_variant' with variant %}
+
+  {%- if wcp_v_price < wcp_v_compare_at_price -%}
+    {%- assign on_sale = true -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- capture price -%}
+  <span class="money" data-variant-price>
+    {{ wcp_price_min | money }}
+  </span>
+{%- endcapture -%}
+
+{% case product.title %}
+{% when 'Heal Thy Self TRiBE' %}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://healthyselftribe.com/" target="_blank">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    {%- unless use_badges -%}
+      {%- if product.available != true -%}
+        {{ 'product.item.availability.out_of_stock' | t }}
+      {%- elsif on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- else -%}
+      {%- if on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }} / Month
+      {%- endif -%}
+    {%- endunless -%}
+  </div>
+</article>
+
+{% when '3D 4 Medical Anatomy App' or 'Anatomy Apron' or 'Blood work Analysis with Dr Nicholas Tancheff' or 'Heal Thy Self Fast (in Bali)' or '5 Day Praxis Retreat (Bali)' or '3 Day Heal Thy Self Express Workshop' %}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="{{ product.url | within: collection }}">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    {%- unless use_badges -%}
+      {%- if product.available != true -%}
+        {{ 'product.item.availability.out_of_stock' | t }}
+      {%- elsif on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- else -%}
+      {%- if on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- endunless -%}
+  </div>
+</article>
+{% else %}
+
+<!--Online Education Online Education Collection display USD pricing-->
+{% when '21 Day Visual Empowerment Course with Danny Vorhauer'%}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="{{ product.url | within: collection }}">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    <span>
+    	$299.00 USD
+    </span>
+  </div>
+</article>
+
+{% when 'The Heal Thy Self Academy'%}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="{{ product.url | within: collection }}">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    <span>
+    	$8,990.00 USD
+    </span>
+  </div>
+
+{% when 'Heal Thy Self Academy Online'%}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="{{ product.url | within: collection }}">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    <span>
+    	$7,990.00 USD
+    </span>
+  </div>
+</article>
+
+{% when 'Heal Thy Self Express Live Online'%}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="{{ product.url | within: collection }}">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    <span>
+    	$1,990.00 USD
+    </span>
+  </div>
+</article>
+
+{% when 'Heal Thy Self Fast Online'%}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="{{ product.url | within: collection }}">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    <span>
+    	$2,990.00 USD
+    </span>
+  </div>
+</article>
+
+{% when 'HTS Express Online Program'%}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="{{ product.url | within: collection }}">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    <span>
+    	$1,490.00 USD
+    </span>
+  </div>
+</article>
+<!--End Online Education Collection display USD pricing-->
+
+<!-- Affiliate Product-->
+{% when 'The Joovv™ Light'%}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="{{ product.url | within: collection }}">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    <span>
+    	From $695.00 USD
+    </span>
+  </div>
+</article>
+
+<!--Chef Cynthia Louise Affiliate-->
+{% when 'Sensational Sauces Super Ebook'%}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/sensationalsauce/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/sensationalsauce/a188/">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    <span>$14.95 USD</span>
+  </div>
+</article>
+
+{% when 'Gluten Free at Home'%}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/cynthiaglutenfree/a188">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/cynthiaglutenfree/a188">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    {%- unless use_badges -%}
+      {%- if product.available != true -%}
+        {{ 'product.item.availability.out_of_stock' | t }}
+      {%- elsif on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- else -%}
+      {%- if on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- endunless -%}
+  </div>
+</article>
+
+{% when 'Epic Smoothies And Shakes Super Ebook'%}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/smoothiesshake/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/smoothiesshake/a188/">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+ 	<span>$14.95 USD</span>
+  </div>
+</article>
+
+{% when 'Deluxe Hot Drinks Super Ebook' %}
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+  <a href="https://vt345.isrefer.com/go/hotdrink/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+      <img
+           alt="{{ product.featured_image.alt | escape }}"
+           src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+           srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+      {%- capture index -%}
+      {%- cycle '1', '2', '3', '4', '5', '6' -%}
+      {%- endcapture -%}
+      {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+      {%- if product.available != true -%}
+      <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+      {%- elsif on_sale -%}
+      <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+      {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+<h1 class="product-item-title">
+  <a href="https://vt345.isrefer.com/go/hotdrink/a188/">{{ product.title }}</a>
+</h1>
+
+<div class="product-price product-item-price">
+<span>$14.95 USD</span>
+</div>
+</article>
+
+{% when 'Healthy Magical Elixirs Super Ebook'%}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/healthyjuice/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/healthyjuice/a188/">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+	<span>$14.95 USD</span>
+  </div>
+</article>
+
+{% when 'Family Favourites Super Ebook'%}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/familyfavourites/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/familyfavourites/a188/">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+	<span>$14.95 USD</span>
+  </div>
+</article>
+
+{% when 'Dressings Of Glory Super Ebook'%}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/ebookdressing/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/ebookdressing/a188/">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+	<span>$14.95 USD</span>
+  </div>
+</article>
+
+{% when 'Asian Chef @ Home Super Ebook' %}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/healthyasian/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/healthyasian/a188/">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+	<span>$14.95 USD</span>
+  </div>
+</article>
+
+{% when 'Super Ebook Bundle' %}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/cynthiasuperebook/a188">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/cynthiasuperebook/a188">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    {%- unless use_badges -%}
+      {%- if product.available != true -%}
+        {{ 'product.item.availability.out_of_stock' | t }}
+      {%- elsif on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- else -%}
+      {%- if on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- endunless -%}
+  </div>
+</article>
+
+{% when 'Online Cooking Class Bundle' %}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/cynthiaclassbundle/a188">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/cynthiaclassbundle/a188">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+    {%- unless use_badges -%}
+      {%- if product.available != true -%}
+        {{ 'product.item.availability.out_of_stock' | t }}
+      {%- elsif on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- else -%}
+      {%- if on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- endunless -%}
+  </div>
+</article>
+
+{% when 'Online Cooking Class - In The Raw' %}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/cookingrawfood/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/cookingrawfood/a188/">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+	<span>$97.00 USD</span>
+  </div>
+</article>
+
+{% when 'Online Cooking Class - Wholefood Love' %}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/cookingwholefoodlove/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/cookingwholefoodlove/a188/">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+	<span>$97.00 USD</span>
+  </div>
+</article>
+
+{% when 'Online Cooking Class - Celebrate Your Sweet Tooth Naturally' %}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}">
+   <a href="https://vt345.isrefer.com/go/cookhealthydesserts/a188/">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        <img
+          alt="{{ product.featured_image.alt | escape }}"
+          src="{{ product.featured_image | img_url: '512x', format: 'pjpg' }}"
+          srcset="{{ product.featured_image | img_url: '512x', scale: 2, format: 'pjpg' }} 2x">
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="https://vt345.isrefer.com/go/cookhealthydesserts/a188/">{{ product.title }}</a>
+  </h1>
+
+  <div class="product-price product-item-price">
+	<span>$97.00 USD</span>
+  </div>
+</article>
+
+<!--CCL Affiliates end-->
+
+
+{% else %}
+
+<article class="
+  product-item
+  product-item-style-{{ product_style }}
+  {% unless product.featured_image %}product-item-no-image{% endunless %}"
+  data-product-item="{{ product.id }}"
+  {%- if use_quickshop -%}data-use-quickshop{%- endif -%}>
+   <a href="{{ product.url | within: collection }}">
+    <figure class="product-item-image" data-product-item-image>
+      <div class="whenhover"></div>
+      {%- if product.featured_image -%}
+        {% if product_grid_show_second_image and product.images.size > 1 %}
+          {%
+            include 'rimg',
+            img: product.images[1].src,
+            size: '512x',
+            lazy: true,
+            class: 'product-image-alternate',
+          %}
+        {% endif %}
+        {%
+          include 'rimg',
+          img: product.featured_image,
+          size: '512x',
+          lazy: true,
+        %}
+      {%- else -%}
+        {%- capture index -%}
+          {%- cycle '1', '2', '3', '4', '5', '6' -%}
+        {%- endcapture -%}
+        {{ 'product-' | append: index | placeholder_svg_tag }}
+      {%- endif -%}
+      {%- if use_badges -%}
+        {%- if product.available != true -%}
+          <span class="product-item-badge">{{ 'product.item.availability.out_of_stock' | t }}</span>
+        {%- elsif on_sale -%}
+          <span class="product-item-badge">{{ 'product.item.badges.on_sale' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </figure>
+  </a>
+
+  <h1 class="product-item-title">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </h1>
+
+  {% if show_vendors %}
+    <h2 class="product-item-vendor">
+      <a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
+    </h2>
+  {% endif %}
+
+  <div class="product-price product-item-price">
+    {%- unless use_badges -%}
+      {%- if product.available != true -%}
+        {{ 'product.item.availability.out_of_stock' | t }}
+      {%- elsif on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- else -%}
+      {%- if on_sale and product.price_varies -%}
+        {{ 'product.item.price.on_sale_range_html' | t: price: price }}
+      {%- elsif on_sale -%}
+        {{ 'product.item.price.on_sale_html' | t: price: price }}
+      {%- elsif product.price_varies -%}
+        {{ 'product.item.price.range_html' | t: price: price }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    {%- endunless -%}
+  </div>
+
+  {%- capture product_quickshop_markup -%}
+    {%- include 'product-quickshop' -%}
+  {%- endcapture -%}
+
+  <script
+    type="application/json"
+    data-quickshop-markup>
+    {{ product_quickshop_markup | json }}
+  </script>
+</article>
+{% endcase %}

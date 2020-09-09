@@ -1,0 +1,1186 @@
+{% capture added_to_cart_link %}
+  {% include 'icon', id: 'checkmark' %}
+  {{ 'product.added_to_cart_link_html' | t }}
+{% endcapture %}
+
+{% assign gallery_position = section.settings.gallery_position_desktop %}
+{% assign gallery_position_mobile = section.settings.gallery_position_mobile %}
+{% assign gallery_layout = section.settings.gallery_layout %}
+
+{% if section.settings.enable_menu_form %}
+  {% assign enable_inline_form = false %}
+{% else %}
+  {% assign enable_inline_form = true %}
+{% endif %}
+
+{% comment %}
+Standard layout is the full size, scrollable image list
+Alternate layout is any of the thumbnail layouts
+{% endcomment %}
+{% assign layout = 'standard' %}
+{% if gallery_layout contains 'thumbnails' %}
+  {% assign layout = 'alternate' %}
+{% endif %}
+
+{% assign thumbnails_direction = 'vertical' %}
+{% if gallery_layout contains 'bottom' %}
+  {% assign thumbnails_direction = 'horizontal' %}
+{% endif %}
+
+<script
+  type="application/json"
+  data-section-type="static-product"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+  {
+    "product": {{ product | json }},
+    "selected_variant": {{ product.selected_variant | json }},
+    "selected_or_first_available_variant": {{ product.selected_or_first_available_variant | json }},
+    "money_format": {{ shop.money_format | json }},
+    "form_is_inline": {{ enable_inline_form | json }},
+    "enable_cart_redirection": {{ section.settings.enable_cart_redirection | json }},
+    "use_history": true,
+    "images_layout": {{ layout | json }},
+    "thumbnails_direction": {{ thumbnails_direction | json }},
+    "text": {
+      "added_to_cart_link": {{ added_to_cart_link | json }},
+      "product_available": {{ 'product.add_to_cart.available' | t | json }},
+      "product_unavailable": {{ 'product.add_to_cart.unavailable' | t | json }}
+    }
+  }
+</script>
+
+{% if enable_inline_form %}
+  <div class="product-alert">
+    <div class="product-alert-content">
+      <div class="product-alert-dismiss">{% include 'icon', id: 'close' %}</div>
+      <div class="product-alert-message"></div>
+    </div>
+  </div>
+{% endif %}
+
+{% capture product_images %}
+  {%
+    include 'product-images',
+    gallery_layout: gallery_layout,
+    gallery_position: gallery_position,
+    layout: layout,
+  %}
+{% endcapture %}
+
+{% capture product_vendor_title_price %}
+  {% if section.settings.show_product_vendor %}
+    <h2 class="product-vendor">
+      <a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
+    </h2>
+  {% endif %}
+
+  <h1 class="product-title">{{ product.title }}</h1>
+ 
+{% endcapture %}
+
+{% capture product_details %}
+  <section class="product-details product-details-relative" data-product-details>
+    
+    <!--- product price --->
+    {{ product_vendor_title_price }}
+   
+    
+    <div id="ratingClick" class="rating" style="margin-bottom:15px;"><span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span></div>
+    <div class="product-shortdesciption">
+      
+      
+      {% assign productDescription = product.description | split:"<!-- split -->"%}
+      
+      {% if productDescription.size > 1 %}
+               
+              <div style="margin-bottom:15px;">
+                {{ productDescription[0] }}
+              </div>
+      
+      {% endif %}
+      
+    </div>
+    <!---- Product PRice -->
+    {% include 'product-price' %}
+    
+    <!---- Unit Weight PRice -->
+    <div class="unit-weight">
+    Unit Weight:
+	{{ variant.weight | weight_with_unit: variant.weight_unit }}
+      <p>&nbsp;</p></div>
+    
+    {% case product.title %}
+
+<!-- Inna Segal Programs-->
+  {% when 'Healing Masterclass with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0a5e1cab2e' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'4dc8c2a1-2819-42f5-8468-35649d24dfbb', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee0a5e1cab2e'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'Peaceful Sleep with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0d87e21455' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'5aa03dee-8ce3-49bd-94ff-988106af2ca3', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0d87e21455'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style> 
+  {% when 'The Secret Language of your Emotions - Volume 1 with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0dd73abda1' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'3ec9051a-ecfc-4653-af38-6ed1f6b9f5a4', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0dd73abda1'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'The Secret Language of Your Emotions: Volume 2 with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0deb54acbf' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'90d9156f-cf4c-43db-9766-cecb75689b70', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0deb54acbf'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>   
+  {% when 'Lose Weight Fast with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0e2b9ea7a4' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'9dfa35f4-09de-45ae-8ae9-a498f4c70d56', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0e2b9ea7a4'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'Affirmations for Happiness, Confidence & Wellbeing with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0e41e7b394' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'400e04be-8a63-46a7-8464-c1c7588f48fa', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0e41e7b394'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'Healing Your Inner Child with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0e5a9a4a3c' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'3bb62c17-d6fa-4792-888e-afd370ca1ffa', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0e5a9a4a3c'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'Freedom From Stress with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0e757350cf' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'8396aedd-e1ec-45f6-9127-7fcd62d61420', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0e757350cf'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>    
+  {% when 'Freedom from Pain with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0e9003a363' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'60c9875d-3fe3-4e77-bc66-4e683e92985c', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0e9003a363'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style> 
+  {% when 'Visionary Intuitive Healing ® Spoken Audios with Inna Segal' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0ea8637f18' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'e57eeb32-024d-4298-b997-33f76e687991', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0ea8637f18'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+   {% when 'Create Perfect Health' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5f02ea61407a4' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'b447752c-c931-48b0-adc1-31233214b5de', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5f02ea61407a4'); </script>            	
+    </div>
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+   {% when 'Inner Healing Series' %}
+    	<div class="product-form-inline-atc">                 
+            <script type="text/javascript" id='pw_5ee0754b098c1' src="https://app.paywhirl.com/pwa.js"></script>
+			<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'6e6aedbf-069e-4ad6-8a9e-9de1025d0570', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee0754b098c1'); </script>           	
+    	</div>
+     
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>   
+  {% when 'MODULE 1: Tuning Into Your Body' %}
+    	<div class="product-form-inline-atc">        
+            <script type="text/javascript" id='pw_5ee0844c33a1c' src="https://app.paywhirl.com/pwa.js"></script>
+			<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'e45395db-208e-41b0-9232-3226bd04933d', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee0844c33a1c'); </script>            	
+    	</div>
+    
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'MODULE 2: Releasing Thought Patterns' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee08620aa1e3' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'66d6d261-26d9-46f6-becc-619e56b3f555', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee08620aa1e3'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'MODULE 3: Transforming Emotions' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee08b6883c2a' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'089be3dc-d4ed-4b86-940a-e6aad938a93e', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee08b6883c2a'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'MODULE 4: Colour Healing' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee08e8f9ab8e' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'708b01ef-685d-4d0f-9919-c287e0bea732', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee08e8f9ab8e'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'MODULE 5: Releasing Pain' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee09e4bc035c' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'fd4e32dd-46fd-47a7-b436-118737d1dffb', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee09e4bc035c'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'MODULE 6: Your Guide to Working with The Secret Language of Your Body' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee09f4e1042e' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'2a38a7a8-6e19-493f-8c06-6df1859050bf', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee09f4e1042e'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'MODULE 7: Cultivating A Daily Healing Practice' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0a120bdc76' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'6626f116-a3ec-45ff-8e3a-151740665291', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee0a120bdc76'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style> 
+<!--End Inna-->
+    
+<!-- Danny-->
+  {% when '21 Day Visual Empowerment Course with Danny Vorhauer' %}
+    <div class="product-form-inline-atc"> 
+      <h3 class="usd-price">$299.00 USD</h3>
+      <script type="text/javascript" id='pw_5f1a69513a58f' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'2a9ba3df-0aed-4dad-9893-4f3931a0d280', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5f1a69513a58f'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+      .product-price{
+        display:none !important;}/*hide AUD price*/
+      .usd-price{
+       font-size:18px; width:100%;padding:0px;margin:0px;margin-bottom:10px;}
+    </style> 
+<!--End Danny-->
+    
+<!--Tyler Tolman-->
+  {% when 'Fasting Masterclass with Tyler Tolman' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0ee255beeb' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'5ec3e765-c51c-4283-8965-46198c70c11d', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee0ee255beeb'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'Sleep Masterclass with Tyler Tolman' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0eec4a0534' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'c4a96592-f7ff-44ac-a55c-71fd989946f9', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee0eec4a0534'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'Intermittent Fasting Masterclass with Tyler Tolman' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0efeec3aef' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'3fa5cdb6-ff7c-4310-8096-51000b56a64b', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee0efeec3aef'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'Raw Food Education Masterclass with Tyler Tolman' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0f1990aebe' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'2b0b1fc6-cad9-4f95-9e76-d71a0cf8059b', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee0f1990aebe'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+  {% when 'Colon Cleanse Masterclass with Tyler Tolman' %}
+    <div class="product-form-inline-atc">        
+      <script type="text/javascript" id='pw_5ee0f2dbb906f' src="https://app.paywhirl.com/pwa.js"></script>
+      <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'5fad5695-448c-42be-9942-b021c3b0f115', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png?v=1591778983' },'pw_5ee0f2dbb906f'); </script>            	
+    </div>
+
+    <style>
+      .pw-buy-btn {
+        margin: 0px !important;
+        max-width: 350px !important;
+        cursor: pointer !important;
+      }
+    </style>
+<!--End Tyler-->
+    
+    	{% when 'Nourish Retreat' %}
+    	<div class="product-form-inline-atc">
+          <h3 class="m-sub-title">Click the date to book your spot</h3>
+          
+          <ul class="paywhirl-btn-container">
+            	<!--<li>
+            	<script type="text/javascript" id='pw_5e410f58bbd46' src="https://app.paywhirl.com/pwa.js"></script>
+<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'1f5ff546-3041-4691-9058-e8d2ea1f7ce0', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5e410f58303e9efda630661c5ee15b71deb6244fc06147705704d.png' },'pw_5e410f58bbd46'); </script>
+            	</li>-->
+            
+            	<li>
+            	<script type="text/javascript" id='pw_5e410fba1fd7c' src="https://app.paywhirl.com/pwa.js"></script>
+<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'95447004-6dd9-40c1-8162-001136ca30af', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5e410fb8961276be63bbc2dd6c42e46224163a38061365a09eee7.png' },'pw_5e410fba1fd7c'); </script>
+            	</li>
+          </ul>
+    	</div>
+    
+    
+        {% when 'The Heal Thy Self Academy' %}
+        <div class="product-form-inline-atc">
+          <h3 class="usd-price">$8,990.00 USD</h3>
+          <h3 class="m-sub-title">Click the date to book your spot</h3>
+          <ul class="paywhirl-btn-container">
+            
+            	<li>
+            	<script type="text/javascript" id='pw_5cedf036027e1' src="https://app.paywhirl.com/pw.js"></script>
+<script>paywhirl('button',{autoscroll: 1, domain:'healthyself' ,uuid:'50b8230d-d107-4d8d-a876-fba78b905c50', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/HTSA-21-29-Nov2020.jpg' },'pw_5cedf036027e1');</script>
+
+            	</li>
+            	
+          </ul>
+    	</div>
+    <style>
+      .product-price{
+        display:none !important;}/*hide AUD price*/
+      .usd-price{
+       font-size:18px; width:100%;padding:0px;margin:0px;margin-bottom:5px;}
+    </style>
+    
+    
+        {% when 'Heal Thy Self Academy Online' %}
+        <div class="product-form-inline-atc">
+          <h3 class="usd-price">$7,990.00 USD</h3>
+          <ul class="paywhirl-btn-container" style="padding:0px;">
+            <li>
+              <h3 style="font-size:16px; width:100%;padding:0px;margin-bottom:5px;">HTSA ONLINE 21-30 August 2020</h3>
+          		<script type="text/javascript" id='pw_5ec6287f5360d' src="https://app.paywhirl.com/pwa.js"></script>
+<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'0d224654-731e-4bd4-ae15-6af442b02a21', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/book-pw-btn.jpg?v=1585874410' },'pw_5ec6287f5360d'); </script>  
+            </li>
+            <li>
+              <h3 style="font-size:16px; width:100%;padding:0px;margin-bottom:5px;">HTSA ONLINE 20-29 November 2020</h3>
+              <script type="text/javascript" id='pw_5ec629dda35e0' src="https://app.paywhirl.com/pwa.js"></script>
+<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'084a2708-21f2-4700-8cd5-9fbd67248340', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/book-pw-btn.jpg?v=1585874410' },'pw_5ec629dda35e0'); </script>
+            </li>	
+          </ul>
+    	</div>
+    <style>
+      .product-price{
+        display:none !important;}/*hide AUD price*/
+      .usd-price{
+       font-size:18px; width:100%;padding:0px;margin:0px;margin-bottom:5px;}
+    </style>
+    
+    {% when 'Heal Thy Self Academy Bundle (includes Express Online)' %}
+        <div class="product-form-inline-atc">
+          <h3 class="m-sub-title">Click the date to book your spots</h3>
+          <ul class="paywhirl-btn-container">
+               
+            <li>
+                  <script type="text/javascript" id='pw_5e5f4a3d5b164' src="https://app.paywhirl.com/pwa.js"></script>
+<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'9fd694bf-5298-43a1-a401-0f8660a4223d', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5e5f4a3cd28ef8af921865a30fdeeb62f032bdf4904ab967cb363.jpg' },'pw_5e5f4a3d5b164'); </script>
+               </li>
+            	<li>
+                   <script type="text/javascript" id='pw_5e5f4a78b0ef1' src="https://app.paywhirl.com/pwa.js"></script>
+<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'bd6930db-0cef-4a9b-945a-e669e766a3c6', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5e5f4a2f47b32e73d045a6d07ad9448a64eccf4bf4ddee2e627cc.jpg' },'pw_5e5f4a78b0ef1'); </script>
+               </li>         	
+          </ul>       
+    	</div>
+    
+    {% when 'Heal Thy Self Coaching Journey (includes Express Online, Academy & 12 Month Coaching Program)' %}
+        <div class="product-form-inline-atc">
+          <h3 class="m-sub-title">Click the date to book your spots</h3>
+          <ul class="paywhirl-btn-container">           
+            	<li>
+                   <script type="text/javascript" id='pw_5c99f7f713d62' src="https://app.paywhirl.com/pwa.js"></script>
+<script>paywhirl('button',{autoscroll: 1, domain:'healthyself' ,uuid:'da41d105-7387-4880-b055-b50842e3411d', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5c99f7f626dcf1fcd959f8dd0c2d43924ba41ff7e5d7593949fa1.png' },'pw_5c99f7f713d62'); </script>
+               </li>
+            	
+          </ul>
+          
+          
+    	</div>
+    
+     {% when 'Heal Thy Self Fast Online' %}
+        <div class="product-form-inline-atc">
+          <h3 class="usd-price">$2,990.00 USD</h3>          
+          <ul class="paywhirl-btn-container" style="padding:0px;">
+            <li>
+              <h3 style="font-size:16px; width:100%;padding:0px;margin-bottom:5px;">Fast ONLINE 24 July - 2 Aug 2020</h3>
+              <script type="text/javascript" id='pw_5ec62da7064db' src="https://app.paywhirl.com/pwa.js"></script>
+              <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'e44b2aa4-45c1-4f5a-ab2d-df6f9824f879', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/book-pw-btn.jpg?v=1585874410' },'pw_5ec62da7064db'); </script>
+
+            </li>
+          </ul>  
+    	</div>
+    <style>
+      .product-price{
+        display:none !important;}/*hide AUD price*/
+      .usd-price{
+       font-size:18px; width:100%;padding:0px;margin:0px;margin-bottom:5px;}
+    </style>      	
+        {% when 'Heal Thy Self Fast (in Bali)' %}
+        <div class="product-form-inline-atc">
+          <h3 class="m-sub-title">Click the date to book your spot</h3>
+          
+          <ul class="paywhirl-btn-container">
+               <li style="display:none">
+               		<script type="text/javascript" id='pw_5b0784f011374' src="https://app.paywhirl.com/pw.js"></script>
+					<script>paywhirl('button',{autoscroll: 1, domain:'healthyself' ,uuid:'f98daf7b-070b-45d3-8615-5270c08802c1', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5b0784ef191b9bb61008c04158e29bf60231ae67fa3812622ba87.png' },'pw_5b0784f011374'); </script>  
+               </li>
+				<li>
+                   <script type="text/javascript" id='pw_5d346a0c1093e' src="https://app.paywhirl.com/pwa.js"></script>
+<script>paywhirl('button',{autoscroll: 1, domain:'healthyself' ,uuid:'e941d0c2-4a9c-4864-ba63-e4afe7bda618', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5d346a0b854c8de89973158b02fed83a8842b8f58c863b78cec0c.png' },'pw_5d346a0c1093e'); </script>
+               </li>
+          </ul>
+    	</div>
+    
+        {% when '3 Day Heal Thy Self Express Workshop' %}
+        <div class="product-form-inline-atc">
+          <!--<h3 class="m-sub-title">Click the date to book your spot</h3>-->
+          <ul class="paywhirl-btn-container">
+              
+			<li>
+                <a href="https://fortuneevents.com/heal-thy-self-express-3-day-workshop">
+              <img src="https://cdn.shopify.com/s/files/1/2300/3895/files/5ac73f3c1e4e91e8f549c60e68cc8147ae732802ad6f7fae1c66b.png?310" />
+            </a>
+            </li>
+          </ul>       
+    	</div>
+    <style>
+          .product-price {display:none !important;}
+          
+    	</style>
+    
+    {% when 'HTS Express Online Program' %}
+        <div class="product-form-inline-atc">
+          <h3 class="usd-price">$1,490.00 USD</h3>
+          <ul class="paywhirl-btn-container" style="padding:0px;">
+            <li>
+              <h3 style="font-size:16px; width:100%;padding:0px;margin-bottom:5px;">HTS Express Online Program</h3>
+              <script type="text/javascript" id='pw_5efee8a909925' src="https://app.paywhirl.com/pwa.js"></script>
+              <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'95889e09-510f-4ab2-a47c-5460758ff7cc', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/book-pw-btn.jpg?v=1585874410' },'pw_5efee8a909925'); </script>
+
+            </li>
+          </ul>  
+    	</div>   
+    	<style>
+          .product-price{
+            display:none !important;}/*hide AUD price*/
+          .usd-price{
+           font-size:18px; width:100%;padding:0px;margin:0px;margin-bottom:5px;}
+        </style>    
+
+    	{% when 'Heal Thy Self Express Live Online' %}
+        <div class="product-form-inline-atc">
+          <h3 class="usd-price">$1,990.00 USD</h3>
+          <ul class="paywhirl-btn-container" style="padding:0px;">
+            <li>
+              <h3 style="font-size:16px; width:100%;padding:0px;margin-bottom:5px;">HTSE Live Online 25 - 27 September 2020</h3>
+              <script type="text/javascript" id='pw_5f1687bab23ca' src="https://app.paywhirl.com/pwa.js"></script>
+              <script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'62a2c4b7-69ea-44ea-a4cc-5b15024143c7', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/book-pw-btn.jpg?v=1585874410' },'pw_5f1687bab23ca'); </script>
+
+            </li>
+          </ul>  
+    	</div>
+    <style>
+      .product-price{
+        display:none !important;}/*hide AUD price*/
+      .usd-price{
+       font-size:18px; width:100%;padding:0px;margin:0px;margin-bottom:5px;}
+    </style>    
+
+    
+        {% when '3 Day Heal Thy Self Express Workshop - Special' %}
+        <div class="product-form-inline-atc">
+          <h3 class="m-sub-title">Click the date to book your spot</h3>
+          <ul class="paywhirl-btn-container">
+               <li>
+                   <script type="text/javascript" id='pw_5b0dfce94168a' src="https://app.paywhirl.com/pw.js"></script>
+                   <script>paywhirl('button',{autoscroll: 1, domain:'healthyself' ,uuid:'13909f09-2fce-43db-b949-e8343aa7a84e', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5b0dfce833d39cd2fe3023be21bbb7618e0940db052245fdf1c71.png' },'pw_5b0dfce94168a'); </script>              </li>
+               <li>
+                   <script type="text/javascript" id='pw_5b0dff653e410' src="https://app.paywhirl.com/pw.js"></script>
+                   <script>paywhirl('button',{autoscroll: 1, domain:'healthyself' ,uuid:'9096de49-6d7e-4b6a-a717-f7f72cf9503d', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5b0dff6426a91f3490f22c4985d462d1d0091d8928a251e6109d3.png' },'pw_5b0dff653e410'); </script>               </li>
+               <li>
+                  <script type="text/javascript" id='pw_5b0e01763f86e' src="https://app.paywhirl.com/pw.js"></script>
+                  <script>paywhirl('button',{autoscroll: 1, domain:'healthyself' ,uuid:'690fd700-d122-4129-bfeb-10448088d950', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5b0e01751c7aafc90a56ba836c0b2048fdc4610319729b6d42791.jpg' },'pw_5b0e01763f86e'); </script>               </li>
+          </ul>
+          <style>
+            .site-header-wrapper,
+            .site-footer-social,
+            .site-footer-nav{display:none;}
+            .myprice{font-weight:bold;color:red;}
+          </style>
+                
+          
+         
+    	</div>
+
+    	{% when '5 Day Praxis Retreat (Bali)' %}
+        <div class="product-form-inline-atc">
+           <h3 class="m-sub-title">Click the date to book your spot</h3>
+           <ul class="paywhirl-btn-container">
+               <li>
+                   <script type="text/javascript" id='pw_5aefcfd956dd0' src="https://app.paywhirl.com/pw.js"></script>
+                   <script>paywhirl('button',{autoscroll: 1, domain:'healthyself' ,uuid:'207a8401-f99f-42f3-806a-9661aff35825', button_image: 'https://s3-us-west-1.amazonaws.com/paywhirl2/images/production/5aefcfd8de41fb297ae8953de33396be9ffc8e0c5155323ac8c31.png' },'pw_5aefcfd956dd0'); </script>
+               </li>
+          </ul>
+    	</div>
+    
+        {% when 'Magnus Opus eBook' %}
+        <div class="product-form-inline-atc">
+          <script type="text/javascript" id='pw_5ee9d2254078b' src="https://app.paywhirl.com/pwa.js"></script>
+      	<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'f9df65d7-518a-467a-a81c-451f6f1fa3b0', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee9d2254078b'); </script>
+    	</div>
+        <style>
+          .pw-buy-btn {
+            margin: 0px !important;
+            max-width: 350px !important;
+          }
+        </style>
+    
+        {% when 'Life Is Movement eBook' %}
+        <div class="product-form-inline-atc">
+          <script type="text/javascript" id='pw_5ee9d2e756ec4' src="https://app.paywhirl.com/pwa.js"></script>
+      	<script>paywhirl('button',{autoscroll: 1, domain:'healthyself', uuid:'322cb8aa-c7e6-472c-a49e-e5fb5ed1dc9b', button_image: 'https://cdn.shopify.com/s/files/1/2300/3895/files/buy-now-pw-blk.png' },'pw_5ee9d2e756ec4'); </script>
+    	</div>
+        <style>
+          .pw-buy-btn {
+            margin: 0px !important;
+            max-width: 350px !important;
+          }
+        </style>
+    
+        {% when 'FasciaBlaster®' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://www.fasciablaster.com/products/fasciablaster?rfsn=1146205.d9551" target="_blank"> Buy Now </a>
+    	</div>
+        {% when 'Mini 1™' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://www.fasciablaster.com/collections/all/products/mini-1?rfsn=1146205.d9551" target="_blank"> Buy Now </a>
+    	</div>
+        {% when 'Mini 2™' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://www.fasciablaster.com/collections/all/products/mini-2?rfsn=1146205.d9551" target="_blank"> Buy Now </a>
+    	</div>
+        {% when 'Nugget' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://www.fasciablaster.com/collections/all/products/nugget?rfsn=1146205.d9551" target="_blank"> Buy Now </a>
+    	</div>
+    	{% when 'MasterBlaster™' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://www.fasciablaster.com/collections/all/products/masterblaster?rfsn=1146205.d9551" target="_blank"> Buy Now </a>
+    	</div>
+        {% when 'Blaster Oil® Set' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://www.fasciablaster.com/collections/all/products/blaster-oil?rfsn=1146205.d9551" target="_blank"> Buy Now </a>
+    	</div>
+        {% when 'FaceBlaster™' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://www.fasciablaster.com/collections/all/products/faceblaster?rfsn=1146205.d9551" target="_blank"> Buy Now </a>
+    	</div>
+    
+    
+       {% when 'Automatic Electric Frankincense Burner – stainless steel' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://halkab.com.au/product/automatic-electric-frankincense-burner-stainless-steel/share/healthyself/"  target="_blank"> Buy Now </a>
+    	</div>
+    
+        {% when 'Royal Hojari Frankincense' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://halkab.com.au/product/royal-hojari-frankincense/share/healthyself/" target="_blank"> Buy Now </a>
+    	</div>
+    
+        {% when 'Handmade Frankincense Incense Sticks – Hojari' %}
+    	<div class="product-form-inline-atc affiliate-btn">
+          <a href="https://halkab.com.au/product/handmade-frankincense-incense-sticks-hojari/share/healthyself/" target="_blank"> Buy Now </a>
+    	</div>
+    
+     	{% when '3D 4 Medical Anatomy App' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="http://bit.ly/2U7bZiV" target="_blank"> Buy it Now </a>
+    	</div>
+    
+    	{% when 'Anatomy Apron' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://amzn.to/307DbgS" target="_blank"> Buy It Now </a>
+    	</div>
+    
+    
+    	{% when 'Blood work Analysis with Dr Nicholas Tancheff' %}
+        <div class="product-form-inline-atc affiliate-btn">
+          <a href="https://app.acuityscheduling.com/schedule.php?owner=17677215&location=Hawaii" class="acuity-embed-button" target="_blank">Book Now</a>
+    	</div>    
+    
+    	<!-- Accuity Button Script-->
+      	<script src="https://embed.acuityscheduling.com/embed/button/12468180.js" async></script>
+    
+    
+    	<!-- Chef Cyntia Louise Affiliate Product Link-->
+    	{% when 'Online Cooking Class - Celebrate Your Sweet Tooth Naturally' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/cookhealthydesserts/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Online Cooking Class - Wholefood Love' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/cookingwholefoodlove/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Online Cooking Class - In The Raw' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/cookingrawfood/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Online Cooking Class Bundle' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/occbvariation1/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Gluten Free At Home' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/glutenfree/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Super Ebook Bundle' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/ebookbundle/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Asian Chef @ Home Super Ebook' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/healthyasian/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Dressings Of Glory Super Ebook' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/ebookdressing/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Dressings Of Glory Super Ebook' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/ebookdressing/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+       	
+    	{% when 'Family Favourites Super Ebook' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/ebookdressing/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Healthy Magical Elixirs Super Ebook' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/healthyjuice/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Deluxe Hot Drinks Super Ebook' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/hotdrink/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Sensational Sauces Super Ebook' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/sensationalsauce/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	{% when 'Epic Smoothies And Shakes Super Ebook' %}
+        <div class="product-form-inline-atc">
+          <a href="https://vt345.isrefer.com/go/smoothiesshake/a188/" class="rys" style="background: #2f2d2f;"  target="_blank">Buy Now</a>
+    	</div>
+    
+    	<!-- End Chef Cyntia Louise Affiliate Product Link-->
+    
+    
+    	{% when 'The Joovv™ Light' %}
+     	<h3 class="usd-price">$695.00 USD</h3>
+        <br>
+    	<div class="product-form-inline-atc affiliate-btn">
+          <a href="https://lddy.no/43vk"> Buy Now </a>
+    	</div>
+        <style>
+        .product-price, .unit-weight{
+          display:none !important;}/*hide AUD price*/
+        .usd-price{
+         font-size:18px; width:100%;padding:0px;margin:0px;margin-bottom:5px;}
+    	</style> 
+    
+    
+    {% else %}
+    {% if enable_inline_form %}
+      {%
+        include 'product-form-inline',
+        show_payment_button: section.settings.show_payment_button
+      %}
+    {% endif %}
+    {% endcase %}
+    <div>
+      <img style="max-width:350px; width:100%;margin-top:5px;margin-bottom:20px;" src="https://cdn.shopify.com/s/files/1/2300/3895/files/shopify-image2.jpg">
+    </div>
+    
+    
+   
+    {% include 'product-form-nojs' %}
+
+    
+
+    {% if section.settings.enable_social_sharing %}
+      {% include 'share-buttons' %}
+    {% endif %}
+
+
+  </section>
+{% endcapture %}
+
+<div
+  class="product-wrapper {% if product.images.size == 0 %}product-wrapper-no-images{% endif %}"
+  data-product-wrapper
+>
+  {% if gallery_position_mobile == 'below_title' %}
+    <div class="product-details-mobile">
+      {{ product_vendor_title_price }}
+    </div>
+  {% endif %}
+
+  {% if gallery_position == 'left' %}
+    {{ product_images }}
+    {{ product_details }}
+  {% endif %}
+
+  {% if gallery_position == 'right' %}
+    {{ product_details }}
+    {{ product_images }}
+  {% endif %}
+</div>
+
+
+<div class="hts-product-details">
+    <div>
+        <ul class="tabs">
+          <li><a href="#tab-1">Description</a></li>
+          {% if productDescription.size > 2 %}
+          <li><a href="#tab-2">Specification</a></li>
+          {% endif %}
+          
+          <li><a href="#tab-3" id="myrev">Reviews</a></li>
+         
+        </ul>
+        <div id="tab-1">
+          
+            {% if productDescription.size > 1 %}
+               
+              
+                  {{ productDescription[1] }}
+          
+            {% else %}
+           
+                  {{ product.description }}
+      
+            {% endif %}
+          
+           
+        </div>
+      
+        <div id="tab-2">
+             {% if productDescription.size > 2 %}
+          
+                  {{ productDescription[2] }}
+      
+             {% endif %}
+          
+        </div>
+      
+      
+        <div id="tab-3">
+            
+             <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        </div>
+        
+    </div>
+  
+  
+  
+    
+</div>
+
+<style>
+.pw-buy-btn {margin:0px !important;}
+  
+.affiliate-btn a {
+  background-color:#000;
+  color:#fff;
+  width:100%;
+  height: 50px;
+  text-align: center;
+  padding: 17px 0px;
+  cursor:pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.affiliate-btn a:hover{
+  text-decoration: none;
+}
+  
+body .product-details{padding-bottom:10px;}  
+#ratingClick{cursor:pointer;}
+ul.tabs {
+  border-bottom: 1px solid #DDDDDD;
+  display: block;
+  margin: 0 0 20px;
+  padding: 0;
+}
+ul.tabs li {
+  display: block;
+  float: left;
+  height: 45px;
+  margin-bottom: 0;
+  padding: 0;
+  width: auto;
+  
+}
+ul.tabs li a {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: none repeat scroll 0 0 #F5F5F5;
+  border-color: #DDDDDD !important;
+  border-style: solid;
+  border-width: 1px 1px 0 1px;
+  display: block;
+  font-size: 16px;
+  height: 40px;
+ 
+  margin: 0;
+  padding: 8px 40px;
+  text-decoration: none;
+  width: auto;
+  color: #303030;
+  border-bottom:none !important;
+}
+ul.tabs li a.active {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-left-width: 1px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  color: #111111;
+  height:45px;
+  margin: 0 0 0 -1px;
+  padding-top: 8px;
+  position: relative;
+  top: -4px;
+}
+ul.tabs li:first-child a.active {
+  margin-left: 0;
+}
+ul.tabs li:first-child a {
+  border-top-left-radius: 2px;
+  border-width: 1px 1px 0;
+}
+ul.tabs li:last-child a {
+  border-top-right-radius: 2px;
+}
+ul.tabs:before, ul.tabs:after {
+  content: " ";
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+}
+ul.tabs:after {
+  clear: both;
+}
+  
+  .hts-product-details{
+     margin:30px 0px 30px 0px;
+     
+  }
+  
+  .col-container{display:flex;}
+  .col-50{width:50%;margin-right:10px;}
+  
+  .tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #ececec;border-collapse: collapse;}
+  .tftable th {font-size:12px;background-color:#eeeeeec7;border-width: 1px;padding: 8px;border-style: solid;border-color: #ececec;text-align:left;width:20%;}
+  .tftable tr {background-color:#f2f2f242;}
+  .tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #ececec;}
+  .tftable tr:hover {background-color:#ffffff;}
+
+  
+  
+  
+  .video-element{max-width:650px;}
+  
+  @media only screen and (max-width:600px){
+    ul.tabs li a{
+        padding: 8px 25px !important;
+    }
+    .col-container{flex-direction:column;}
+    .col-50{width:100%;}
+  }
+  
+</style>
+
+
+{% if enable_inline_form == false %}
+  {%-
+    include 'product-menu',
+    show_payment_button: section.settings.show_payment_button
+  -%}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product pages new",
+  "class": "section-product-new",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_menu_form",
+      "label": "Enable bottom menu",
+      "default": false,
+      "info": "Displays product options and breadcrumbs in a sticky bottom menu."
+    },
+    {
+      "id": "show_product_vendor",
+      "type": "checkbox",
+      "label": "Show product vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_cart_redirection",
+      "label": "Enable cart redirection",
+      "info": "Automatically sends users to the Cart page after adding a product.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_button",
+      "label": "Show dynamic checkout button",
+      "info": "Each customer will see their preferred payment method from those available on your store, such as PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Product gallery"
+    },
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "options": [
+         { "value": "slideshow_thumbnails_bottom", "label": "Slideshow thumbnails bottom" },
+         { "value": "slideshow_thumbnails_left", "label": "Slideshow thumbnails left" },
+         { "value": "slideshow_thumbnails_right", "label": "Slideshow thumbnails right" },
+         { "value": "single_column", "label": "List view" }
+      ],
+      "label": "Desktop layout",
+      "default": "single_column"
+    },
+    {
+      "type": "select",
+      "id": "gallery_position_desktop",
+      "options": [
+         { "value": "left", "label": "Left" },
+         { "value": "right", "label": "Right" }
+      ],
+      "label": "Desktop position",
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "gallery_position_mobile",
+      "options": [
+         { "value": "below_title", "label": "Below title" },
+         { "value": "above_title", "label": "Above title" }
+      ],
+      "label": "Tablet & mobile position",
+      "default": "above_title"
+    },
+    {
+      "type": "header",
+      "content": "Sharing"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_social_sharing",
+      "label": "Enable social sharing",
+      "default": false
+    }
+  ]
+}
+
+{% endschema %}
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script>
+   $(document).ready(function() {
+     
+     
+    $('ul.tabs').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });
+  });
+  
+  $(document).ready(function() { 
+        $("#ratingClick").click(function(){
+      
+              console.log('test');
+              $('html, body').animate({scrollTop: $("div.hts-product-details").offset().top}, 1000);
+          
+              $("#myrev").click(); 
+        });
+  });
+</script> 
+{% unless product == empty %}
+ <script type="application/json" class="wcp_json wcp_json_{{ product.id }}" id="wcp_json_{{ product.id }}" > 
+   {% include 'wcp_product_json' with product %}
+</script>
+{% endunless %}
